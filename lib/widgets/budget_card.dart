@@ -19,14 +19,14 @@ class BudgetCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.add_chart, color: Colors.white, size: 32),
+              Icon(Icons.add_chart, color: Colors.lightBlue, size: 32),
               SizedBox(width: 12),
               Text(
                 'Create Monthly Budget',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
             ],

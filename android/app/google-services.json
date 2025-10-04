@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "973320893505",
+    "project_id": "gurikaab-98a66",
+    "storage_bucket": "gurikaab-98a66.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973320893505:android:a545ba1676f48c112142c0",
+        "android_client_info": {
+          "package_name": "com.example.home_expenses_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSsMcEipwg9ZdezMEo5qaMeA14XJBoZgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

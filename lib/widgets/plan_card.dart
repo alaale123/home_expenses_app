@@ -19,14 +19,14 @@ class PlanCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.edit, color: Colors.white, size: 32),
+              Icon(Icons.edit, color: Colors.lightBlue, size: 32),
               SizedBox(width: 12),
               Text(
                 'Plan Monthly Budget',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Colors.lightBlue,
                 ),
               ),
             ],
