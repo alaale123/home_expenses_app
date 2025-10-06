@@ -9,6 +9,7 @@ import 'widgets/image_placeholder.dart';
 import 'utils/rent_storage.dart';
 import 'utils/wallet_storage.dart';
 import 'utils/company_storage.dart';
+import 'wife_approval_page.dart';
 
 class HusbandPage extends StatelessWidget {
   final String name;
@@ -552,7 +553,55 @@ class _HusbandPageContentState extends State<_HusbandPageContent> {
                   context: context,
                   builder: (context) => AlertDialog(
                     title: const Text('Profile'),
-                    content: Text('Logged in as ${widget.name}'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Logged in as ${widget.name}'),
+                        SizedBox(height: 12),
+                        FutureBuilder<QuerySnapshot>(
+                          future: FirebaseFirestore.instance
+                              .collection('users')
+                              .where('role', isEqualTo: 'wife')
+                              .where('husbandEmail', isEqualTo: widget.name)
+                              .where('status', isEqualTo: 'approved')
+                              .get(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) return SizedBox();
+                            final docs = snapshot.data!.docs;
+                            if (docs.isEmpty) return Text('No approved wives yet.', style: TextStyle(fontSize: 13));
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Approved Wives:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                                ...docs.map((doc) {
+                                  final data = doc.data() as Map<String, dynamic>;
+                                  final wifeName = data['displayName'] ?? data['email'] ?? 'Wife';
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 2.0),
+                                    child: Text(wifeName, style: TextStyle(fontSize: 13)),
+                                  );
+                                }).toList(),
+                              ],
+                            );
+                          },
+                        ),
+                        SizedBox(height: 16),
+                        ElevatedButton.icon(
+                          icon: Icon(Icons.verified_user, color: Colors.green),
+                          label: Text('Approve Wives'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => WifeApprovalPage(husbandEmail: widget.name),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.of(context).pop(),
@@ -634,6 +683,7 @@ class _HusbandPageContentState extends State<_HusbandPageContent> {
                               _showManageCompanyNumbersDialog();
                             },
                           ),
+                          // Removed 'Approve Wives' from settings
                         ],
                       ),
                     );
